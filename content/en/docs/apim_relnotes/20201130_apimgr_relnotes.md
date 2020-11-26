@@ -20,9 +20,13 @@ The following new features and enhancements are available in this update.
 
 An easy and convenient automated script to backup and restore Cassandra clusters are now included in API Manager from Version Nov 2020 onwards, and it will be available separately for customers in supported versions Pre-Nov 2020. [More information can be found here ](https://docs.axway.com/bundle/axway-open-docs/page/docs/cass_admin/cassandra_bur/index.html)
 
+### Enhanced API life cycle management for Organization administrators
 
+In the [September 2020](/docs/apim_relnotes/20200930_apimgr_relnotes/#organization-administrators-can-publish-apis) release, we created the `api.manager.orgadmin.selfservice.enabled` system property to allow an Organization administrator to publish and unpublish APIs that were created in their organization without approval from an API Administrator.
 
-placeholder text for New features and enhancements
+In this release, we enhanced the property with new API life cycle events (deprecate, undeprecate, upgrade, and grant access to APIs), which will be made available to an Organization administrator when `api.manager.orgadmin.selfservice.enabled` is set to True.
+
+For more information, see [System property changes](/docs/apim_reference/system_props/)
 
 ## Important changes
 
