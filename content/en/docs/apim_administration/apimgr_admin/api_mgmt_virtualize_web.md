@@ -514,7 +514,18 @@ After this is done and the old API is unpublished, the new API will be invoked a
 
 <!--EndFragment-->
 
-API Manager enables an API to be granted access to external organizations, ti also provides a dependency view, being able to see the organizations and applications using the API, and revoke acess to the API, enhancing the lifecycle of an API.
+API Manager enables an API to be granted access to external organizations, it also provides a dependency view, being able to see the organizations and applications using the API, and revoke acess to the API, enhancing the lifecycle of an API.
+
+**User Role permissions**
+
+The scope of the API Admins and Organization Administrators are:
+
+* API Admins:
+
+  * grant access to any API belonging to any organization
+  * Dependency view for all published APIs from all Organizations.
+  * Permission to revoke access to any API belonging to any organization.
+* Organization Administrators may grant access to APIs that belong to an organization where the user's role is that of an Organization Administrator.
 
 <!--StartFragment-->
 
@@ -522,7 +533,7 @@ API Manager enables an API to be granted access to external organizations, ti al
 
 <!--EndFragment-->
 
-API Admins, and Organization Admininstrators can grant API access to external organizations, the Organization Administrator needs to have access to all the organizations and proxies, which can be done with the [enablement of the system property](https://axway-open-docs.netlify.app/docs/api_mgmt_overview/key_concepts/api_mgmt_orgs_roles/#organizationadministrator), this provision is available to an organization administrator. The scope of the API Admin and Organization Administrator are:
+API Admins and Organization Administrators can grant API access to external organizations, the Organization Administrator needs to have access to all the organizations and proxies, which can be done with the [enablement of the system property](https://axway-open-docs.netlify.app/docs/api_mgmt_overview/key_concepts/api_mgmt_orgs_roles/#organizationadministrator), this provision is available to an organization administrator. The scope of the API Admin and Organization Administrator are:
 
 * API Admins may grant access to any API belonging to any organization.
 * Organization Administrators may grant access to APIs that belong to an organization where the user's role is that of an Organization Administrator.
@@ -535,8 +546,6 @@ Make the following query `POST/proxies/grantaccess` as described with greater de
 **Granting access in API Manager's UI**
 
 Click on the Frontend API tab located in the upper-left corner, click on the checkbox next to a published API, click **Manage selected**, and choose **Grant access** which brings you to the fllowing screen:
-
- 
 
 ![](/Images/docbook/images/api_mgmt/grant-api-access-example.png)
 
@@ -558,18 +567,16 @@ Make a call using this query `GET/proxies/{id}/apiacces`, it should return two O
 **Object 1 - Organization**
 
 * `organizationName`”: The name of the external organization accessing the API being queried.
-*  “`organizationId`”: The organization ID.
-*  “`createdOn`”: The date from which API access has been granted to the organization.
-
+* “`organizationId`”: The organization ID.
+* “`createdOn`”: The date from which API access has been granted to the organization.
 
 **Object 2 - Applications**
 
-*  “`applications`”: An array displaying the organization’s applications using the API.
-*  “`applicationName`”: The name of the application.
-*  “`applicationId`”: The application ID.
-*  “`organizationId`”: The organization where the application belongs to.
-*  “`createdOn`”: The date from which API access has been granted to the application.
-
+* “`applications`”: An array displaying the organization’s applications using the API.
+* “`applicationName`”: The name of the application.
+* “`applicationId`”: The application ID.
+* “`organizationId`”: The organization where the application belongs to.
+* “`createdOn`”: The date from which API access has been granted to the application.
 
 Sample extract of a successful query bellow:
 
@@ -602,19 +609,25 @@ Click on a published API, click on the **API Access** tab, located between the "
 
 The default view is by “Organizations”, a table with 3 columns will display:
 
-*  1st column named "Organization": The external organization in which API access has been granted.
-*  2nd column named "Applications": The number of applications belonging to the organization from which API access has been granted.
-*  3rd column named "Access Granted Date": The initial date the Organization was granted access.
-
+* 1st column named "Organization": The external organization in which API access has been granted.
+* 2nd column named "Applications": The number of applications belonging to the organization from which API access has been granted.
+* 3rd column named "Access Granted Date": The initial date the Organization was granted access.
 
 If you click on the “Applications” tab, a table with 3 columns will display:
 
-*  1st column named "Applications": The name of the application using the API.
-*  2nd column named "Organization": The external organization where the application belongs to in which API access has been granted.
-*  3rd column named "Access Granted Date": The initial date the application had access to the API.
+* 1st column named "Applications": The name of the application using the API.
+* 2nd column named "Organization": The external organization where the application belongs to in which API access has been granted.
+* 3rd column named "Access Granted Date": The initial date the application had access to the API.
 
 <!--StartFragment-->
 
 ### Revoke Access to an API
 
 <!--EndFragment-->
+
+API Admins, and Organization Administrators can revoke access to external organizations using an API, effectively being able to undo the process of granting access of an API to an external organization, enhancing API Manager’s capabilities to ensure API traffic, quotas and other sensible factors are being managed as per company policy. 
+
+
+The scope of the API Admin and Organization Administrator are the same as highlighted above:
+An API Admin has complete permission to revoke access to any API belonging to any organization.
+An Organization Administrator has permission to revoke access to APIs that belong to an Organization where the user has an Organization Administrator permission.
