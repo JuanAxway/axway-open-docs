@@ -1,9 +1,9 @@
 {
 "title": "Virtualize REST APIs in API Manager",
-"linkTitle": "Virtualize REST APIs",
-"weight": "60",
-"date": "2019-09-17",
-"description": "Virtualize a registered back-end API as a publicly exposed front-end API."
+  "linkTitle": "Virtualize REST APIs",
+  "weight": "60",
+  "date": "2019-09-17",
+  "description": "Virtualize a registered back-end API as a publicly exposed front-end API."
 }
 When you have registered a back-end REST API, you can then virtualize it as a publicly exposed front-end API. The **API Catalog**
 stores information about the REST APIs that have been virtualized as front-end APIs. Virtualized REST APIs published in the **API Catalog** can be made available in API Manager for consumption by API consumers, and for administration by API administrators.
@@ -467,8 +467,8 @@ When you have registered the back-end REST API, you can select it in the list of
 * **Grant Access**: Grants organizations access to the selected APIs. You can select whether to **Grant API access to** all organizations, specific organizations, or organizations with access to specific APIs.
 * **Export API collection**: Exports a copy of the selected front-end REST APIs to your chosen directory. The APIs are exported in JSON format in a `.dat` file, which combines the front-end API, back-end API, security profiles, and so on. You must specify the following in the dialog:
 
-    * **Export file name**: Specify a file name to export (defaults to `api-export.dat`)
-    * **Password**: Add a mandatory password for encryption
+  * **Export file name**: Specify a file name to export (defaults to `api-export.dat`)
+  * **Password**: Add a mandatory password for encryption
 
     You can then import this file into API Manager as required (for example, when promoting between environments). See [Import a previously exported API](#import-a-previously-exported-api) and [Promote managed APIs between environments](/docs/apim_administration/apimgr_admin/api_mgmt_promote/).
 
@@ -501,10 +501,120 @@ To upgrade the access to a newer version of the API (v1.1.0) to all organization
 
 1. Add the new API v1.1.0 to API Manager and publish it.
 
-    ![Both old and new APIs published in API Manager](/Images/APIGateway/both_published.png)
-
+   ![Both old and new APIs published in API Manager](/Images/APIGateway/both_published.png)
 2. Select the old v1.0.0 API, click **Manage selected**, and choose **Upgrade access to newer API**, which brings you to the following screen:
 
-    ![Grant API access screen in API Manager](/Images/APIGateway/grant_api_access.png)
+   ![Grant API access screen in API Manager](/Images/APIGateway/grant_api_access.png)
 
 After this is done and the old API is unpublished, the new API will be invoked and traffic will flow through the new API.
+
+<!--StartFragment-->
+
+## API Access
+
+<!--EndFragment-->
+
+API Manager enables an API to be granted access to external organizations, ti also provides a dependency view, being able to see the organizations and applications using the API, and revoke acess to the API, enhancing the lifecycle of an API.
+
+<!--StartFragment-->
+
+### Grant Access
+
+<!--EndFragment-->
+
+API Admins, and Organization Admininstrators can grant API access to external organizations, the Organization Administrator needs to have access to all the organizations and proxies, which can be done with the [enablement of the system property](https://axway-open-docs.netlify.app/docs/api_mgmt_overview/key_concepts/api_mgmt_orgs_roles/#organizationadministrator), this provision is available to an organization administrator. The scope of the API Admin and Organization Administrator are:
+
+* API Admins may grant access to any API belonging to any organization.
+* Organization Administrators may grant access to APIs that belong to an organization where the user's role is that of an Organization Administrator.
+  [](https://deploy-preview-1351--axway-open-docs.netlify.app/docs/api_mgmt_overview/key_concepts/api_mgmt_orgs_roles/#organizationadministrator)
+
+**Granting access via HTTP client.**
+
+Make the following query `POST/proxies/grantaccess` as described with greater detail in our [Swagger documentation.](http://apidocs.axway.com/swagger-ui/index.html?productname=apimanager&productversion=7.7.0&filename=api-manager-V_1_3-swagger.json#!/API_Proxy_Registration/post_proxies_grantaccess)
+
+**Granting access in API Manager's UI**
+
+Click on the Frontend API tab located in the upper-left corner, click on the checkbox next to a published API, click **Manage selected**, and choose **Grant access** which brings you to the fllowing screen:
+
+ 
+
+![](/Images/docbook/images/api_mgmt/grant-api-access-example.png)
+
+<!--StartFragment-->
+
+### Dependency View
+
+<!--EndFragment-->
+
+You can view the usage of Published Frontend APIs that has been granted access to external Organizations and their applications, as well as the access granted date; this feature is available in API Manager’s UI, as well as API calls via HTTP clients. The user roles with access to this feature are as follows:
+
+API Admin: Overall view for all published APIs from all Organizations
+Organization Administrator: Overall view for all published APIs that belong to an Organization where the user has an Organization Administrator permission.
+
+**Making a query via HTTP client.**
+
+Make a call using this query `GET/proxies/{id}/apiacces`, it should return two Objects for every organization described as follows:
+
+**Object 1 - Organization**
+
+* `organizationName`”: The name of the external organization accessing the API being queried.
+*  “`organizationId`”: The organization ID.
+*  “`createdOn`”: The date from which API access has been granted to the organization.
+
+
+**Object 2 - Applications**
+
+*  “`applications`”: An array displaying the organization’s applications using the API.
+*  “`applicationName`”: The name of the application.
+*  “`applicationId`”: The application ID.
+*  “`organizationId`”: The organization where the application belongs to.
+*  “`createdOn`”: The date from which API access has been granted to the application.
+
+
+Sample extract of a successful query bellow:
+
+```
+  [
+    {
+      "organizationName": "API Development",
+      "organizationId": "33c4fdde-18e2-43c8-a4cc-e5ec555bfc40",
+      "createdOn": 1618235034862,
+      "applications": [
+        {
+        "applicationName": "App1",
+        "applicationId": "7188a2b0-c5b9-4057-9e31-1a0a6e74b850",
+        "organizationId": "33c4fdde-18e2-43c8-a4cc-e5ec555bfc40",
+        "createdOn": 1618235062907
+        }
+      ]
+    }
+  ]
+```
+
+Additional notes:
+
+* If the {id} does not exist, an empty array will be returned.
+* If anyone other than an Organization Administrator from the API’s Organization, or the API Admin tries to access the API, a 403 forbidden message will be thrown.
+
+**What is being shown in API Manager’s UI.**
+
+Click on a published API, click on the **API Access** tab, located between the "API Methods" and "Security Profiles" Tab, a table will be displayed containing two tabs, “Organizations”, and “Applications”.
+
+The default view is by “Organizations”, a table with 3 columns will display:
+
+*  1st column named "Organization": The external organization in which API access has been granted.
+*  2nd column named "Applications": The number of applications belonging to the organization from which API access has been granted.
+*  3rd column named "Access Granted Date": The initial date the Organization was granted access.
+
+
+If you click on the “Applications” tab, a table with 3 columns will display:
+
+*  1st column named "Applications": The name of the application using the API.
+*  2nd column named "Organization": The external organization where the application belongs to in which API access has been granted.
+*  3rd column named "Access Granted Date": The initial date the application had access to the API.
+
+<!--StartFragment-->
+
+### Revoke Access to an API
+
+<!--EndFragment-->
