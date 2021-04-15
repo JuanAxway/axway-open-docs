@@ -514,7 +514,11 @@ After this is done and the old API is unpublished, the new API will be invoked a
 
 <!--EndFragment-->
 
-API Manager enables an API to be granted access to external organizations, it also provides a dependency view, being able to see the organizations and applications using the API, and revoke acess to the API, enhancing the lifecycle of an API.
+This feature enables you to manage the lifespan of an API being used by an external organization, broken down into three parts:
+
+1. Grant acess to external organizations
+2. Dependency view, making possible to see the external organizations and their applications using the API
+3. Revoke access to the API
 
 **User Role permissions**
 
@@ -537,10 +541,10 @@ The scope of the API Admins and Organization Administrators are:
 
 <!--EndFragment-->
 
-API Admins, and Organization Administrators can grant API access to external organizations, the Organization Administrator needs to have access to all the organizations and proxies, which can be done with the [enablement of the system property](https://axway-open-docs.netlify.app/docs/api_mgmt_overview/key_concepts/api_mgmt_orgs_roles/#organizationadministrator), this provision is available to an Organization Administrator. 
+API Admins, and Organization Administrators can grant API access to external organizations, once access has ben granted to an external organization, the organization in question is free to use that API in any application they see fit, the Organization Administrator needs to have access to all the organizations and proxies, which can be done with the [enablement of the system property](https://axway-open-docs.netlify.app/docs/api_mgmt_overview/key_concepts/api_mgmt_orgs_roles/#organizationadministrator), this provision is available to an Organization Administrator. 
 [](https://deploy-preview-1351--axway-open-docs.netlify.app/docs/api_mgmt_overview/key_concepts/api_mgmt_orgs_roles/#organizationadministrator)
 
-**Granting access via HTTP client.**
+**Granting access via HTTP client**
 
 Make the following query `POST/proxies/grantaccess` as described with greater detail in our [Swagger documentation.](http://apidocs.axway.com/swagger-ui/index.html?productname=apimanager&productversion=7.7.0&filename=api-manager-V_1_3-swagger.json#!/API_Proxy_Registration/post_proxies_grantaccess)
 
@@ -558,23 +562,23 @@ Click on the Frontend API tab located in the upper-left corner, click on the che
 
 You can view the usage of published frontend APIs that has been granted access to external organizations and their applications, as well as the access granted date.
 
-**Making a dependency view query via HTTP client.**
+**Making a dependency view query via HTTP client**
 
 Make the following query `GET/proxies/{id}/apiacces`, it should return two Objects for every organization described as follows:
 
 **Object 1 - Organization**
 
 * `organizationName`”: The name of the external organization accessing the API being queried.
-* “`organizationId`”: The organization ID.
-* “`createdOn`”: The date from which API access has been granted to the organization.
+* `organizationId`: The organization ID.
+* `createdOn`: The date from which API access has been granted to the organization.
 
 **Object 2 - Applications**
 
-* “`applications`”: An array displaying the organization’s applications using the API.
-* “`applicationName`”: The name of the application.
-* “`applicationId`”: The application ID.
-* “`organizationId`”: The organization where the application belongs to.
-* “`createdOn`”: The date from which API access has been granted to the application.
+* `applications`: An array displaying the organization’s applications using the API.
+* `applicationName`: The name of the application.
+* `applicationId`: The application ID.
+* `organizationId`: The organization where the application belongs to.
+* `createdOn`: The date from which API access has been granted to the application.
 
 Sample extract of a successful query bellow:
 
@@ -601,7 +605,7 @@ Additional notes:
 * If the `{id}` does not exist, an empty array will be returned.
 * If anyone other than an Organization Administrator from the API’s Organization, or the API Admin tries to access the API, a 403 forbidden message will be thrown.
 
-**Dependency view in API Manager’s UI.**
+**Dependency view in API Manager’s UI**
 
 Click on a published API, click on the **API Access** tab, located between the "API Methods" and "Security Profiles" Tab, a table will be displayed containing two tabs named **Organizations**, and **Applications**.
 
@@ -611,11 +615,15 @@ The default view is by **Organizations**, a table with three columns will displa
 2.  **Applications**: The number of applications belonging to the organization from which API access has been granted.
 3. **Access granted date**: The initial date the organization was granted access.
 
+![Dependency view default](/Images/docbook/images/api_mgmt/dependency-view-default.png "Dependency view default")
+
 If you click on the **Applications** tab, a table with three columns will display:
 
 1. **Applications**: The name of the application using the API.
 2. **Organization**: The external organization where the application belongs to in which API access has been granted.
 3. **Access granted date**: The initial date the application had access to the API.
+
+![Dependency view by applications](/Images/docbook/images/api_mgmt/dependency-view-applications-tab.png "Dependency view by applications")
 
 <!--StartFragment-->
 
@@ -629,21 +637,21 @@ You can revoke access to external organizations using an API, effectively being 
 
 Make the following query, `DELETE/proxies/{id}/apiaccess?organizationId={orgId}`, it should return:
 
-* 204
-* The revoking of access the Organization and all their applications using the API
+* 204.
+* The revoking of access the Organization and all their applications using the API.
 
 
 Additional notes: 
 
-* An invalid request will return a 400 message
-* If anyone other than an Organization Administrator from the API’s Organization, or the API Admin tries to access the API, a 403 forbidden message will be thrown
+* An invalid request will return a 400 message.
+* If anyone other than an Organization Administrator from the API’s Organization, or the API Admin tries to access the API, a 403 forbidden message will be thrown.
 
 
 **Revoke Access in API Manager’s UI**
 
 Using the dependency view’s default view, which is sorted by “Organizations“, located in the "API Access" tab: 
 
-1. Click on a checkbox next to the API
+1. Click on a checkbox next to the API.
 2. Click on the **Manage selected** button, a sub-menu will appear.
 3. Click on **Disable access**, a pop-up verification message will appear.
 4. Click on the **Disable** button if you wish to proceed.
@@ -651,6 +659,6 @@ Using the dependency view’s default view, which is sorted by “Organizations�
 
 Additional notes:
 
-1. You cannot revoke access to the original organization that API belongs to – (no self-revoke access is allowed)
+1. You cannot revoke access to the original organization that API belongs to – (no self-revoke access is allowed).
 
 * Revoke access is only done at the organizational level, which means that irrespectively of the number of applications belonging to the organizations using the API, the process of revoking API access will be a one-off process, revoking access to the selected organization, and by consequence, all applications using the API.
