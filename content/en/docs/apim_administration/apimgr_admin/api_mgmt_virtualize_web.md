@@ -568,7 +568,7 @@ Make the following query `GET/proxies/{id}/apiacces`, it should return two Objec
 
 **Object 1 - Organization**
 
-* `organizationName`”: The name of the external organization accessing the API being queried.
+* `organizationName`: The name of the external organization accessing the API being queried.
 * `organizationId`: The organization ID.
 * `createdOn`: The date from which API access has been granted to the organization.
 
@@ -580,7 +580,7 @@ Make the following query `GET/proxies/{id}/apiacces`, it should return two Objec
 * `organizationId`: The organization where the application belongs to.
 * `createdOn`: The date from which API access has been granted to the application.
 
-Sample extract of a successful query bellow:
+A sample extract of a successful query bellow:
 
 ```
   [
@@ -612,7 +612,7 @@ Click on a published API, click on the **API Access** tab, located between the "
 The default view is by **Organizations**, a table with three columns will display:
 
 1. **Organization**: The external organization in which API access has been granted.
-2.  **Applications**: The number of applications belonging to the organization from which API access has been granted.
+2. **Applications**: The number of applications belonging to the organization from which API access has been granted.
 3. **Access granted date**: The initial date the organization was granted access.
 
 ![Dependency view default](/Images/docbook/images/api_mgmt/dependency-view-default.png "Dependency view default")
@@ -640,12 +640,10 @@ Make the following query, `DELETE/proxies/{id}/apiaccess?organizationId={orgId}`
 * 204.
 * The revoking of access the Organization and all their applications using the API.
 
-
 Additional notes: 
 
 * An invalid request will return a 400 message.
 * If anyone other than an Organization Administrator from the API’s Organization, or the API Admin tries to access the API, a 403 forbidden message will be thrown.
-
 
 **Revoke Access in API Manager’s UI**
 
@@ -659,6 +657,5 @@ Using the dependency view’s default view, which is sorted by “Organizations�
 
 Additional notes:
 
-1. You cannot revoke access to the original organization that API belongs to – (no self-revoke access is allowed).
-
+* You cannot revoke access to the original organization that API belongs to – (no self-revoke access is allowed).
 * Revoke access is only done at the organizational level, which means that irrespectively of the number of applications belonging to the organizations using the API, the process of revoking API access will be a one-off process, revoking access to the selected organization, and by consequence, all applications using the API.
