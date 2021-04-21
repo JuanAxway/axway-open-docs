@@ -651,8 +651,8 @@ Using the dependency view’s default view, which is sorted by “Organizations�
 
 1. Click on a checkbox next to the API.
 2. Click on the **Manage selected** button, a sub-menu will appear.
-3. Click on **Disable access**, a pop-up verification message will appear.
-4. Click on the **Disable** button if you wish to proceed.
+3. Click on **Revoke access**, a pop-up verification message will appear.
+4. Click on the **Revoke** button if you wish to proceed.
 5. Access to the selected organization and its applications will be revoked.
 
 Additional notes:
