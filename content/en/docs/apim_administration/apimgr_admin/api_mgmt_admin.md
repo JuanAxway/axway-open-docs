@@ -97,19 +97,13 @@ Organizations are used in API Manager by different entities to group or manage e
 
 Both organization types can be used to manage access to APIs. Organization administrators grant access to APIs for one, multiple, or all organizations. As a result, a user sees only the APIs that their organization has access to.
 
-<!--StartFragment-->
-
-### Dependency View
-
-<!--EndFragment-->
+### Dependency view
 
 You can view the usage of published frontend APIs that has been granted access to external organizations and their applications, as well as the access granted date.
 
-### Revoke Access to an API
+### Revoke access to an API
 
-<!--EndFragment-->
-
-You can revoke access to external organizations using an API, effectively being able to undo the process of granting access of an API to an external organization, enhancing API Manager’s capabilities to ensure API traffic, quotas, and other sensible factors are being managed as per company policy. 
+You can revoke access to external organizations using an API, effectively being able to undo the process of granting access of an API to an external organization, enhancing API Manager’s capabilities to ensure API traffic, quotas, and other sensible factors are being managed as per company policy.
 
 For more details, see [Organizations and user roles in API Manager](/docs/api_mgmt_overview/key_concepts/api_mgmt_orgs_roles/#organizations-and-user-roles-in-api-manager).
 
