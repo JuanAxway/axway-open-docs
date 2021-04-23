@@ -464,11 +464,11 @@ When you have registered the back-end REST API, you can select it in the list of
 * **Deprecate**: Select whether to **Retire API at specific date**, and enter a **Retirement date**. When selected, the published API is displayed with a date when it will be retired (unpublished) from the API Catalog, and is no longer available to client applications. When deprecated, the API is still published and clients can continue to discover and use the API. Only a published API can be deprecated and unpublished.
 * **Undeprecate**: Undeprecates the selected deprecated REST API.
 * **Upgrade access to newer API**: Upgrades all organizations and applications that had access to the original API to a more recent version of the API (if one exists). You can also deprecate and retire the original API as options.
-* **Grant Access**: Grants organizations access to the selected APIs. You can select whether to **Grant API access to** all organizations, specific organizations, or organizations with access to specific APIs.
+* **Grant Access**: Grants organizations access to the selected APIs. You can select whether to **Grant API access to** all organizations, specific organizations, or organizations with access to specific APIs. For more information see [Manage API access](#manage-api-access).
 * **Export API collection**: Exports a copy of the selected front-end REST APIs to your chosen directory. The APIs are exported in JSON format in a `.dat` file, which combines the front-end API, back-end API, security profiles, and so on. You must specify the following in the dialog:
 
-  * **Export file name**: Specify a file name to export (defaults to `api-export.dat`)
-  * **Password**: Add a mandatory password for encryption
+    * **Export file name**: Specify a file name to export (defaults to `api-export.dat`)
+    * **Password**: Add a mandatory password for encryption
 
     You can then import this file into API Manager as required (for example, when promoting between environments). See [Import a previously exported API](#import-a-previously-exported-api) and [Promote managed APIs between environments](/docs/apim_administration/apimgr_admin/api_mgmt_promote/).
 
@@ -508,154 +508,57 @@ To upgrade the access to a newer version of the API (v1.1.0) to all organization
 
 After this is done and the old API is unpublished, the new API will be invoked and traffic will flow through the new API.
 
-<!--StartFragment-->
+## Manage API access
 
-## API Access
+You can grant or revoke access to your APIs, as well as you can view a list of the organizations and applications that have access to your APIs. The scope of access is as follows:
 
-<!--EndFragment-->
+* API Administrator (API Admin):
 
-This feature enables you to manage the lifespan of an API being used by an external organization, broken down into three parts:
+    * Grant access to any API belonging to any organization.
+    * Dependency view for all published APIs from all organizations.
+    * Revoke access to any API belonging to any organization.
 
-1. Grant acess to external organizations
-2. Dependency view, making possible to see the external organizations and their applications using the API
-3. Revoke access to the API
+* Organization Administrator (Org Admin):
 
-**User Role permissions**
+    * Grant access to APIs that belong to an organization within the scope of the Org Admin.
+    * Dependency view to APIs that belong to an organization within the scope of the Org Admin.
+    * Revoke access to APIs that belong to an organization within the scope of the Org Admin.
 
-The scope of the API Admins and Organization Administrators are:
+### Grant access to an API
 
-1. API Admin:
+Both API Admins and Org Admins can grant API access to organizations. After access has been granted to an API, it can then be used in any application within the organization, but the Org Admin still needs access to all the organizations and proxies to be able to manage the API. For more information on how to enable API management access to Org Admins, see [Organization administrator](/docs/api_mgmt_overview/key_concepts/api_mgmt_orgs_roles/#organizationadministrator).
 
-   * Grant access to any API belonging to any organization.
-   * Dependency view for all published APIs from all Organizations.
-   * Revoke access to any API belonging to any organization.
-2. Organization Administrators:
+To grant access to an API, perform the following steps:
 
-   * Grant access to APIs that belong to an organization within the scope of the Organization Administrator.
-   * Dependency view to APIs that belong to an organization within the scope of the Organization Administrator.
-   * Revoke access to APIs that belong to an organization within the scope of the Organization Administrator.
+1. Click **Frontend API** view in API Manager, then select one or more APIs from the list.
+2. Click the **Manage selected** drop-down list, then choose **Grant access**.
+3. Choose an option in the **Grant API access dialog** dialog box, then click **OK**.
+    ![Grant API access](/Images/docbook/images/api_mgmt/grant-api-access-example.png)
 
-<!--StartFragment-->
+### List resources with access to the API
 
-### Grant Access
+To view the list of organizations and applications, which can access an API, perform the following steps:
 
-<!--EndFragment-->
+1. Click **Frontend API** view in API Manager, then select an API from the list.
+2. In the details of the API, click the **API Access** tab.
+    A table containing two tabs, **Organizations** and **Applications**, is shown.
 
-API Admins, and Organization Administrators can grant API access to external organizations, once access has ben granted to an external organization, the organization in question is free to use that API in any application they see fit, the Organization Administrator needs to have access to all the organizations and proxies, which can be done with the [enablement of the system property](https://axway-open-docs.netlify.app/docs/api_mgmt_overview/key_concepts/api_mgmt_orgs_roles/#organizationadministrator), this provision is available to an Organization Administrator. 
-[](https://deploy-preview-1351--axway-open-docs.netlify.app/docs/api_mgmt_overview/key_concepts/api_mgmt_orgs_roles/#organizationadministrator)
+    ![Dependency view by applications](/Images/docbook/images/api_mgmt/dependency-view-applications-tab.png)
 
-**Granting access via HTTP client**
+You can view the usage of published front-end APIs that have been granted access to external organizations and their applications, as well as the access granted date.
 
-Make the following query `POST/proxies/grantaccess` as described with greater detail in our [Swagger documentation.](http://apidocs.axway.com/swagger-ui/index.html?productname=apimanager&productversion=7.7.0&filename=api-manager-V_1_3-swagger.json#!/API_Proxy_Registration/post_proxies_grantaccess)
+### Revoke access to an API
 
-**Granting access in API Manager's UI**
+You can revoke an API access from applications and organizations. When you revoke access at the organizational level, this automatically also remove the access from all applications belonging to that organization, which were using the API.
 
-Click on the Frontend API tab located in the upper-left corner, click on the checkbox next to a published API, click **Manage selected**, and choose **Grant access** which brings you to the fllowing screen:
+Note that you cannot revoke access to the original organization that API belongs to, no self-revoke access is allowed.
 
-![](/Images/docbook/images/api_mgmt/grant-api-access-example.png)
+To revoke access to organizations or applications, perform the following steps:
 
-<!--StartFragment-->
+1. Click **Frontend API** view in API Manager and select an API from the list.
+2. In the details of the API, click the **API Access** tab.
+3. From the **Organizations** tab, select the organizations you wish to revoke access from. The **Manage selected** drop-down list is enabled.
+4. Click the **Manage selected** drop-down list, and select **Revoke access**.
+5. Click **Revoke** in the **Revoke API Access** dialog box to confirm the operation.
 
-### Dependency View
-
-<!--EndFragment-->
-
-You can view the usage of published frontend APIs that has been granted access to external organizations and their applications, as well as the access granted date.
-
-**Making a dependency view query via HTTP client**
-
-Make the following query `GET/proxies/{id}/apiacces`, it should return two Objects for every organization described as follows:
-
-**Object 1 - Organization**
-
-* `organizationName`: The name of the external organization accessing the API being queried.
-* `organizationId`: The organization ID.
-* `createdOn`: The date from which API access has been granted to the organization.
-
-**Object 2 - Applications**
-
-* `applications`: An array displaying the organization’s applications using the API.
-* `applicationName`: The name of the application.
-* `applicationId`: The application ID.
-* `organizationId`: The organization where the application belongs to.
-* `createdOn`: The date from which API access has been granted to the application.
-
-A sample extract of a successful query bellow:
-
-```
-  [
-    {
-      "organizationName": "API Development",
-      "organizationId": "33c4fdde-18e2-43c8-a4cc-e5ec555bfc40",
-      "createdOn": 1618235034862,
-      "applications": [
-        {
-        "applicationName": "App1",
-        "applicationId": "7188a2b0-c5b9-4057-9e31-1a0a6e74b850",
-        "organizationId": "33c4fdde-18e2-43c8-a4cc-e5ec555bfc40",
-        "createdOn": 1618235062907
-        }
-      ]
-    }
-  ]
-```
-
-Additional notes:
-
-* If the `{id}` does not exist, an empty array will be returned.
-* If anyone other than an Organization Administrator from the API’s Organization, or the API Admin tries to access the API, a 403 forbidden message will be thrown.
-
-**Dependency view in API Manager’s UI**
-
-Click on a published API, click on the **API Access** tab, located between the "API Methods" and "Security Profiles" Tab, a table will be displayed containing two tabs named **Organizations**, and **Applications**.
-
-The default view is by **Organizations**, a table with three columns will display:
-
-1. **Organization**: The external organization in which API access has been granted.
-2. **Applications**: The number of applications belonging to the organization from which API access has been granted.
-3. **Access granted date**: The initial date the organization was granted access.
-
-![Dependency view default](/Images/docbook/images/api_mgmt/dependency-view-default.png "Dependency view default")
-
-If you click on the **Applications** tab, a table with three columns will display:
-
-1. **Applications**: The name of the application using the API.
-2. **Organization**: The external organization where the application belongs to in which API access has been granted.
-3. **Access granted date**: The initial date the application had access to the API.
-
-![Dependency view by applications](/Images/docbook/images/api_mgmt/dependency-view-applications-tab.png "Dependency view by applications")
-
-<!--StartFragment-->
-
-### Revoke Access to an API
-
-<!--EndFragment-->
-
-You can revoke access to external organizations using an API, effectively being able to undo the process of granting access of an API to an external organization, enhancing API Manager’s capabilities to ensure API traffic, quotas and other sensible factors are being managed as per company policy. 
-
-**Revoke Access via HTTP Client**
-
-Make the following query, `DELETE/proxies/{id}/apiaccess?organizationId={orgId}`, it should return:
-
-* 204.
-* The revoking of access the Organization and all their applications using the API.
-
-Additional notes: 
-
-* An invalid request will return a 400 message.
-* If anyone other than an Organization Administrator from the API’s Organization, or the API Admin tries to access the API, a 403 forbidden message will be thrown.
-
-**Revoke Access in API Manager’s UI**
-
-Using the dependency view’s default view, which is sorted by “Organizations“, located in the "API Access" tab: 
-
-1. Click on a checkbox next to the API.
-2. Click on the **Manage selected** button, a sub-menu will appear.
-3. Click on **Revoke access**, a pop-up verification message will appear.
-4. Click on the **Revoke** button if you wish to proceed.
-5. Access to the selected organization and its applications will be revoked.
-
-Additional notes:
-
-* You cannot revoke access to the original organization that API belongs to – (no self-revoke access is allowed).
-* Revoke access is only done at the organizational level, which means that irrespectively of the number of applications belonging to the organizations using the API, the process of revoking API access will be a one-off process, revoking access to the selected organization, and by consequence, all applications using the API.
+    The organization is removed form the list.
