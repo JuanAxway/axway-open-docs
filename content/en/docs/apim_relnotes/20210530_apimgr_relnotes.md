@@ -24,7 +24,7 @@ The following new features and enhancements are available in this update.
 
 ### Dependency view, and revoke access to Frontend APIs
 
-API Manager allows Organization Administrators and API Admins to grant access to their APIs with any organization; a new feature has now made available to view the usage of APIs where access has been granted to organizations and their applications, as well as revoking its access. More information can be found [here.](https://axway-open-docs.netlify.app/docs/apim_administration/apimgr_admin/api_mgmt_virtualize_web/#manage-api-access)
+API Manager allows Organization Administrators and API Administrators to grant access to their APIs with any organization; a new feature has now made available to view the usage of APIs where access has been granted to organizations and their applications, as well as revoking its access. More information can be found [here.](https://axway-open-docs.netlify.app/docs/apim_administration/apimgr_admin/api_mgmt_virtualize_web/#manage-api-access)
 
 
 
