@@ -22,13 +22,9 @@ Any custom `.fed` files deployed to a container must be upgraded using [upgradec
 
 The following new features and enhancements are available in this update.
 
-### Dependency view, and revoke access to Frontend APIs
+### Dependency view and revoke access to front-end APIs
 
-API Manager allows Organization Administrators and API Administrators to grant access to their APIs with any organization; a new feature has now made available to view the usage of APIs where access has been granted to organizations and their applications, as well as revoking its access. More information can be found [here.](https://axway-open-docs.netlify.app/docs/apim_administration/apimgr_admin/api_mgmt_virtualize_web/#manage-api-access)
-
-
-
-placeholder
+API Manager allows Organization Administrators and API Administrators to grant access to their APIs within any organization. Now, you can also view the usage of APIs, where access has been granted to organizations and their applications, as well as revoking their access. For more information, see [Manage API access](/docs/apim_administration/apimgr_admin/api_mgmt_virtualize_web/#manage-api-access).
 
 ### YAML configuration store (Technical preview capability)
 
